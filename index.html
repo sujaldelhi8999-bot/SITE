@@ -18,7 +18,7 @@
 
 <style>
   :root {
-    --bg-0:     #01040a;
+    --bg-0:     #01030a;
     --bg-1:     #050b16;
     --fg:       #eef3f9;
     --mute:     #7d8ea3;
@@ -29,8 +29,12 @@
 
     --silver:   #d8e2ee;
     --silver-2: #93a5bd;
-    --accent:   #78b4f0;
+    --accent:   #89c7ff;
     --accent-2: #3d6ea8;
+    --aether:   #80f4ff;
+    --violet:   #8f7dff;
+    --gold:     #f3d89b;
+    --gold-dim: #9d7a43;
 
     --tight: "Inter Tight", "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
     --sans:  "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
@@ -62,9 +66,39 @@
   .bg-radial {
     position: fixed;
     inset: 0;
-    z-index: -2;
+    z-index: -3;
     background:
-      radial-gradient(120% 85% at 50% 34%, #0e2038 0%, #081527 30%, #040a16 60%, #01040a 100%);
+      radial-gradient(70% 55% at 50% 21%, rgba(243, 216, 155, 0.11) 0%, rgba(243, 216, 155, 0.035) 24%, transparent 58%),
+      radial-gradient(88% 68% at 72% 26%, rgba(143, 125, 255, 0.2) 0%, rgba(44, 57, 128, 0.16) 30%, transparent 66%),
+      radial-gradient(120% 85% at 50% 34%, #142845 0%, #081527 30%, #040a16 60%, #01030a 100%);
+  }
+
+  .bg-aurora {
+    position: fixed;
+    inset: -12%;
+    z-index: -1;
+    pointer-events: none;
+    opacity: 0.78;
+    filter: blur(28px) saturate(116%);
+    background:
+      radial-gradient(38% 30% at 18% 24%, rgba(128, 244, 255, 0.19) 0%, transparent 72%),
+      radial-gradient(44% 36% at 82% 18%, rgba(143, 125, 255, 0.2) 0%, transparent 74%),
+      radial-gradient(54% 42% at 50% 78%, rgba(120, 180, 240, 0.12) 0%, transparent 70%);
+    transform: translate3d(0, 0, 0) scale(1.05);
+    animation: auroraDrift 22s ease-in-out infinite alternate;
+  }
+  .bg-aurora::before {
+    content: "";
+    position: absolute;
+    inset: 10% 4% 16%;
+    background:
+      conic-gradient(from 210deg at 50% 40%, transparent 0deg, rgba(128, 244, 255, 0.11) 42deg, transparent 92deg, rgba(143, 125, 255, 0.12) 178deg, transparent 242deg, rgba(243, 216, 155, 0.08) 308deg, transparent 360deg);
+    mix-blend-mode: screen;
+    opacity: 0.7;
+  }
+  @keyframes auroraDrift {
+    0%   { transform: translate3d(-1.4%, -0.8%, 0) scale(1.04) rotate(-1deg); }
+    100% { transform: translate3d(1.4%, 1.1%, 0) scale(1.08) rotate(1deg); }
   }
 
   #stage {
@@ -73,6 +107,7 @@
     z-index: 0;
     display: block;
     pointer-events: none;
+    opacity: 0.98;
   }
 
   .bg-rays {
@@ -80,21 +115,21 @@
     inset: 0;
     z-index: 1;
     pointer-events: none;
-    opacity: 0.55;
+    opacity: 0.62;
     background:
       conic-gradient(
         from 180deg at 50% 38%,
         transparent 0deg,
-        rgba(120, 180, 240, 0.07) 10deg,
+        rgba(128, 244, 255, 0.07) 10deg,
         transparent 22deg,
         transparent 70deg,
-        rgba(120, 180, 240, 0.05) 82deg,
+        rgba(143, 125, 255, 0.07) 82deg,
         transparent 94deg,
         transparent 160deg,
         rgba(120, 180, 240, 0.06) 172deg,
         transparent 184deg,
         transparent 260deg,
-        rgba(120, 180, 240, 0.05) 272deg,
+        rgba(243, 216, 155, 0.05) 272deg,
         transparent 284deg
       );
     mask-image: radial-gradient(90% 70% at 50% 42%, #000 0%, transparent 78%);
@@ -104,7 +139,7 @@
   .horizon {
     position: fixed;
     left: 0; right: 0; bottom: 0;
-    height: 46vh;
+    height: 48vh;
     z-index: 2;
     pointer-events: none;
   }
@@ -112,44 +147,63 @@
     content: "";
     position: absolute;
     left: 50%; top: 46%;
-    width: 130vw;
-    height: 70vh;
+    width: 136vw;
+    height: 74vh;
     transform: translate(-50%, 0);
     background:
       radial-gradient(ellipse at 50% 50%,
-        rgba(120, 180, 240, 0.28) 0%,
-        rgba(120, 180, 240, 0.09) 22%,
+        rgba(128, 244, 255, 0.23) 0%,
+        rgba(143, 125, 255, 0.09) 24%,
         transparent 58%);
-    filter: blur(24px);
+    filter: blur(28px);
   }
   .horizon::after {
     content: "";
     position: absolute;
     left: 50%; top: 46%;
-    width: 64vw;
+    width: min(72vw, 920px);
     height: 2px;
     transform: translate(-50%, 0);
-    background: linear-gradient(90deg, transparent, rgba(180, 210, 250, 0.85), transparent);
+    background: linear-gradient(90deg, transparent, rgba(128, 244, 255, 0.7), rgba(243, 216, 155, 0.74), rgba(128, 244, 255, 0.7), transparent);
     filter: blur(1px);
     box-shadow:
-      0 0 24px rgba(120, 180, 240, 0.9),
-      0 0 70px rgba(120, 180, 240, 0.45);
+      0 0 24px rgba(128, 244, 255, 0.72),
+      0 0 74px rgba(143, 125, 255, 0.42);
   }
 
   .ground {
     position: fixed;
     left: 0; right: 0; bottom: 0;
-    height: 46vh;
+    height: 48vh;
     z-index: 2;
     pointer-events: none;
     background:
       linear-gradient(to bottom,
         transparent 0%,
-        rgba(120, 180, 240, 0.02) 30%,
+        rgba(128, 244, 255, 0.02) 30%,
         rgba(120, 180, 240, 0.055) 62%,
-        rgba(120, 180, 240, 0.1) 100%);
+        rgba(143, 125, 255, 0.1) 100%);
     mask-image: radial-gradient(60% 90% at 50% 100%, #000 0%, transparent 82%);
     -webkit-mask-image: radial-gradient(60% 90% at 50% 100%, #000 0%, transparent 82%);
+    overflow: hidden;
+  }
+  .ground::before {
+    content: "";
+    position: absolute;
+    left: -30%;
+    right: -30%;
+    bottom: -16%;
+    height: 92%;
+    background-image:
+      linear-gradient(rgba(128, 244, 255, 0.17) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(128, 244, 255, 0.15) 1px, transparent 1px);
+    background-size: 72px 72px;
+    transform: perspective(720px) rotateX(68deg);
+    transform-origin: 50% 100%;
+    opacity: 0.18;
+    filter: drop-shadow(0 0 14px rgba(128, 244, 255, 0.28));
+    mask-image: linear-gradient(to top, #000 0%, transparent 84%);
+    -webkit-mask-image: linear-gradient(to top, #000 0%, transparent 84%);
   }
 
   .vignette {
@@ -158,8 +212,8 @@
     z-index: 3;
     pointer-events: none;
     background:
-      radial-gradient(120% 90% at 50% 40%, transparent 0%, transparent 42%, rgba(1,4,10, 0.78) 100%),
-      linear-gradient(to bottom, rgba(1,4,10,0.42) 0%, transparent 14%, transparent 78%, rgba(1,4,10,0.78) 100%);
+      radial-gradient(120% 90% at 50% 40%, transparent 0%, transparent 42%, rgba(1,4,10, 0.76) 100%),
+      linear-gradient(to bottom, rgba(1,4,10,0.34) 0%, transparent 14%, transparent 78%, rgba(1,4,10,0.82) 100%);
   }
 
   .grain {
@@ -167,7 +221,7 @@
     inset: 0;
     z-index: 90;
     pointer-events: none;
-    opacity: 0.05;
+    opacity: 0.055;
     mix-blend-mode: overlay;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   }
@@ -280,6 +334,24 @@
     opacity: 0;
     animation: rise 1400ms 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   }
+  .hero::before {
+    content: "";
+    position: absolute;
+    top: -26%;
+    left: 50%;
+    width: clamp(360px, 52vw, 720px);
+    height: clamp(360px, 52vw, 720px);
+    transform: translateX(-50%);
+    border-radius: 50%;
+    background:
+      radial-gradient(circle, rgba(128, 244, 255, 0.12) 0%, transparent 43%),
+      conic-gradient(from 120deg, transparent 0deg, rgba(128, 244, 255, 0.11) 54deg, transparent 92deg, rgba(243, 216, 155, 0.08) 170deg, transparent 230deg, rgba(143, 125, 255, 0.1) 286deg, transparent 360deg);
+    filter: blur(1px);
+    opacity: 0.72;
+    z-index: -1;
+    mask-image: radial-gradient(circle, #000 0%, transparent 68%);
+    -webkit-mask-image: radial-gradient(circle, #000 0%, transparent 68%);
+  }
 
   /* ══════════ THE R LOGO ══════════ */
   .r-logo {
@@ -291,6 +363,8 @@
     justify-content: center;
     margin-bottom: 22px;
     isolation: isolate;
+    perspective: 900px;
+    transform-style: preserve-3d;
   }
 
   .r-logo::before {
@@ -306,9 +380,26 @@
     z-index: -1;
     animation: haloPulse 6s ease-in-out infinite;
   }
+  .r-logo::after {
+    content: "";
+    position: absolute;
+    inset: -9%;
+    z-index: -1;
+    border-radius: 50%;
+    border: 1px solid rgba(128, 244, 255, 0.18);
+    background:
+      conic-gradient(from 10deg, transparent 0deg, rgba(128, 244, 255, 0.26) 18deg, transparent 56deg, transparent 132deg, rgba(243, 216, 155, 0.24) 156deg, transparent 190deg, transparent 260deg, rgba(143, 125, 255, 0.2) 286deg, transparent 330deg),
+      radial-gradient(circle, transparent 54%, rgba(128, 244, 255, 0.08) 56%, transparent 62%);
+    opacity: 0.82;
+    transform: rotateX(66deg) translateY(15%);
+    animation: sealTurn 16s linear infinite;
+  }
   @keyframes haloPulse {
     0%, 100% { opacity: 0.95; transform: scale(1); }
     50%      { opacity: 0.5;  transform: scale(1.08); }
+  }
+  @keyframes sealTurn {
+    to { transform: rotateX(66deg) translateY(15%) rotateZ(360deg); }
   }
 
   .r-logo svg {
@@ -372,11 +463,13 @@
     letter-spacing: 0.42em;
     text-indent: 0.42em;
     line-height: 1;
-    background: linear-gradient(180deg, #ffffff 0%, #cdd9e6 48%, #7a8899 100%);
+    background: linear-gradient(180deg, #ffffff 0%, #f5eddb 18%, #cdd9e6 52%, #7a8899 100%);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
-    text-shadow: 0 0 44px rgba(180, 210, 245, 0.18);
+    text-shadow:
+      0 0 44px rgba(180, 210, 245, 0.2),
+      0 0 86px rgba(128, 244, 255, 0.08);
     margin: 0;
   }
 
@@ -393,35 +486,76 @@
   /* ── Feature strip ────────────────────────────────────── */
   .features {
     display: grid;
-    grid-template-columns: 1fr 1px 1fr 1px 1fr;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     align-items: stretch;
-    max-width: 820px;
+    gap: 14px;
+    max-width: 920px;
     width: 100%;
+    perspective: 900px;
     opacity: 0;
     animation: rise 1200ms 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   }
   @media (max-width: 720px) {
     .features { grid-template-columns: 1fr; max-width: 320px; gap: 24px; }
-    .features .divider { display: none; }
   }
 
   .feature {
-    padding: 0 clamp(8px, 2vw, 26px);
+    position: relative;
+    padding: 18px clamp(16px, 2.4vw, 28px) 19px;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 11px;
+    border: 1px solid rgba(233, 238, 245, 0.1);
+    border-radius: 22px;
+    background:
+      linear-gradient(180deg, rgba(233, 238, 245, 0.075) 0%, rgba(120, 180, 240, 0.018) 100%),
+      radial-gradient(circle at 50% 0%, rgba(128, 244, 255, 0.12), transparent 62%);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.08),
+      0 20px 58px -34px rgba(128, 244, 255, 0.35);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    overflow: hidden;
+    transform-style: preserve-3d;
+    transition:
+      transform 520ms cubic-bezier(0.16, 1, 0.3, 1),
+      border-color 420ms ease,
+      box-shadow 420ms ease;
+  }
+  .feature::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(115deg, transparent 0%, rgba(255, 255, 255, 0.09) 36%, transparent 55%);
+    opacity: 0;
+    transform: translateX(-55%);
+    transition: transform 700ms cubic-bezier(0.16, 1, 0.3, 1), opacity 420ms ease;
+    pointer-events: none;
+  }
+  .feature:hover {
+    transform: translateY(-4px) rotateX(3deg);
+    border-color: rgba(128, 244, 255, 0.28);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.12),
+      0 28px 72px -32px rgba(128, 244, 255, 0.48);
+  }
+  .feature:hover::before {
+    opacity: 1;
+    transform: translateX(65%);
   }
 
   .feature .icon {
     width: 22px;
     height: 22px;
-    color: var(--accent);
-    filter: drop-shadow(0 0 10px rgba(120, 180, 240, 0.55));
+    color: var(--aether);
+    filter: drop-shadow(0 0 12px rgba(128, 244, 255, 0.5));
     margin-bottom: 2px;
+    position: relative;
+    z-index: 1;
     transition: transform 500ms cubic-bezier(0.16, 1, 0.3, 1);
   }
-  .feature:hover .icon { transform: translateY(-2px) scale(1.08); }
+  .feature:hover .icon { transform: translateY(-3px) translateZ(18px) scale(1.08); }
 
   .feature h3 {
     font-family: var(--tight);
@@ -431,6 +565,8 @@
     text-indent: 0.42em;
     text-transform: uppercase;
     color: var(--silver);
+    position: relative;
+    z-index: 1;
   }
 
   .feature p {
@@ -441,15 +577,12 @@
     color: var(--mute);
     letter-spacing: 0.01em;
     max-width: 22ch;
+    position: relative;
+    z-index: 1;
   }
 
   .features .divider {
-    background: linear-gradient(to bottom,
-      transparent 0%,
-      var(--rule-hi) 30%,
-      var(--rule-hi) 70%,
-      transparent 100%);
-    align-self: stretch;
+    display: none;
   }
 
   /* ── Supporting text ──────────────────────────────────── */
@@ -504,15 +637,17 @@
   .countdown {
     display: inline-flex;
     align-items: stretch;
-    border: 1px solid var(--rule);
+    border: 1px solid rgba(233, 238, 245, 0.11);
+    border-radius: 18px;
     background: linear-gradient(180deg,
-      rgba(120, 180, 240, 0.045) 0%,
-      rgba(120, 180, 240, 0.005) 100%);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+      rgba(233, 238, 245, 0.08) 0%,
+      rgba(120, 180, 240, 0.015) 100%);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
     box-shadow:
-      0 0 0 1px rgba(120, 180, 240, 0.05),
-      0 24px 70px -22px rgba(120, 180, 240, 0.3);
+      inset 0 1px 0 rgba(255, 255, 255, 0.08),
+      0 0 0 1px rgba(128, 244, 255, 0.045),
+      0 24px 74px -24px rgba(128, 244, 255, 0.35);
     overflow: hidden;
   }
 
@@ -525,7 +660,7 @@
     min-width: 0;
     position: relative;
   }
-  .unit + .unit { border-left: 1px solid var(--rule); }
+  .unit + .unit { border-left: 1px solid rgba(233, 238, 245, 0.09); }
 
   .value {
     font-family: var(--mono);
@@ -535,7 +670,9 @@
     letter-spacing: -0.045em;
     font-variant-numeric: tabular-nums;
     color: var(--fg);
-    text-shadow: 0 0 26px rgba(120, 180, 240, 0.3);
+    text-shadow:
+      0 0 26px rgba(128, 244, 255, 0.26),
+      0 0 42px rgba(143, 125, 255, 0.12);
     display: flex;
     align-items: baseline;
   }
@@ -576,7 +713,7 @@
     display: block;
     height: 100%;
     width: 100%;
-    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    background: linear-gradient(90deg, transparent, var(--aether), var(--gold), transparent);
     transform: translateX(calc(-100% + (var(--p, 0) * 100%)));
   }
 
@@ -593,10 +730,10 @@
     gap: 14px;
     padding: 15px 36px 16px;
     border-radius: 999px;
-    border: 1px solid rgba(120, 180, 240, 0.3);
+    border: 1px solid rgba(128, 244, 255, 0.32);
     background: linear-gradient(180deg,
-      rgba(120, 180, 240, 0.09) 0%,
-      rgba(120, 180, 240, 0.015) 100%);
+      rgba(128, 244, 255, 0.11) 0%,
+      rgba(143, 125, 255, 0.04) 100%);
     color: var(--silver);
     font-family: var(--tight);
     font-weight: 500;
@@ -608,8 +745,8 @@
     transition: all 460ms cubic-bezier(0.16, 1, 0.3, 1);
     box-shadow:
       inset 0 1px 0 rgba(255, 255, 255, 0.07),
-      0 0 0 1px rgba(120, 180, 240, 0.05),
-      0 22px 55px -22px rgba(120, 180, 240, 0.45);
+      0 0 0 1px rgba(128, 244, 255, 0.06),
+      0 22px 55px -22px rgba(128, 244, 255, 0.5);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     opacity: 0;
@@ -622,7 +759,7 @@
     position: absolute;
     inset: 0;
     background: radial-gradient(circle at 50% 130%,
-      rgba(120, 180, 240, 0.45) 0%,
+      rgba(128, 244, 255, 0.42) 0%,
       transparent 62%);
     opacity: 0;
     transition: opacity 460ms ease;
@@ -642,13 +779,13 @@
     pointer-events: none;
   }
   .coming-soon:hover {
-    border-color: rgba(120, 180, 240, 0.62);
+    border-color: rgba(128, 244, 255, 0.64);
     color: #ffffff;
     transform: translateY(-2px);
     box-shadow:
       inset 0 1px 0 rgba(255, 255, 255, 0.14),
-      0 0 0 1px rgba(120, 180, 240, 0.15),
-      0 28px 70px -20px rgba(120, 180, 240, 0.7);
+      0 0 0 1px rgba(128, 244, 255, 0.16),
+      0 28px 70px -20px rgba(128, 244, 255, 0.68);
   }
   .coming-soon:hover::before { opacity: 1; }
   .coming-soon:hover::after  { left: 130%; }
@@ -711,13 +848,14 @@
       transition-duration: 0.01ms !important;
     }
     header, .hero, .features, .supporting, .countdown-wrap, .coming-soon, footer { opacity: 1; }
-    .live-dot, .r-logo::before, .r-logo svg, .r-logo .sweep::after { animation: none; }
+    .bg-aurora, .live-dot, .r-logo::before, .r-logo::after, .r-logo svg, .r-logo .sweep::after { animation: none; }
   }
 </style>
 </head>
 <body>
 
 <div class="bg-radial" aria-hidden="true"></div>
+<div class="bg-aurora" aria-hidden="true"></div>
 <canvas id="stage" aria-hidden="true"></canvas>
 <div class="bg-rays" aria-hidden="true"></div>
 <div class="ground" aria-hidden="true"></div>
@@ -1150,6 +1288,9 @@
   });
   renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
   renderer.setSize(window.innerWidth, window.innerHeight, false);
+  renderer.outputEncoding = THREE.sRGBEncoding;
+  renderer.toneMapping = THREE.ACESFilmicToneMapping;
+  renderer.toneMappingExposure = 1.08;
 
   const scene = new THREE.Scene();
   const camera = new THREE.PerspectiveCamera(
@@ -1167,24 +1308,24 @@
     const ctx = c.getContext("2d");
 
     const g = ctx.createLinearGradient(0, 0, 0, 512);
-    g.addColorStop(0.00, "#dfe8f2");
-    g.addColorStop(0.32, "#9eb1c6");
-    g.addColorStop(0.50, "#4a6580");
-    g.addColorStop(0.66, "#1b2c44");
+    g.addColorStop(0.00, "#fff4d6");
+    g.addColorStop(0.26, "#c9e4ff");
+    g.addColorStop(0.48, "#557aa0");
+    g.addColorStop(0.66, "#1c2e58");
     g.addColorStop(1.00, "#070d18");
     ctx.fillStyle = g;
     ctx.fillRect(0, 0, 1024, 512);
 
     const hl = ctx.createRadialGradient(260, 130, 0, 260, 130, 340);
-    hl.addColorStop(0, "rgba(255, 255, 255, 0.9)");
-    hl.addColorStop(0.4, "rgba(200, 220, 240, 0.35)");
+    hl.addColorStop(0, "rgba(255, 246, 220, 0.95)");
+    hl.addColorStop(0.4, "rgba(215, 230, 255, 0.36)");
     hl.addColorStop(1, "rgba(200, 220, 240, 0)");
     ctx.fillStyle = hl;
     ctx.fillRect(0, 0, 1024, 512);
 
     const ac = ctx.createRadialGradient(800, 170, 0, 800, 170, 300);
-    ac.addColorStop(0, "rgba(120, 180, 240, 0.75)");
-    ac.addColorStop(0.5, "rgba(120, 180, 240, 0.2)");
+    ac.addColorStop(0, "rgba(128, 244, 255, 0.82)");
+    ac.addColorStop(0.45, "rgba(143, 125, 255, 0.24)");
     ac.addColorStop(1, "rgba(120, 180, 240, 0)");
     ctx.fillStyle = ac;
     ctx.fillRect(0, 0, 1024, 512);
@@ -1204,39 +1345,129 @@
   const envMap = makeEnvMap();
   scene.environment = envMap;
 
-  scene.add(new THREE.HemisphereLight(0xa8c0dc, 0x0a1424, 0.5));
-  const key = new THREE.DirectionalLight(0xf2f6fb, 1.0);
-  key.position.set(-5, 6, 7);
+  scene.add(new THREE.HemisphereLight(0xd7e8ff, 0x090f22, 0.56));
+  const key = new THREE.DirectionalLight(0xfff2d1, 1.1);
+  key.position.set(-5.5, 6.5, 7);
   scene.add(key);
-  const rim = new THREE.DirectionalLight(0x78b4f0, 0.9);
+  const rim = new THREE.DirectionalLight(0x80f4ff, 1.0);
   rim.position.set(7, -3, -4);
   scene.add(rim);
-  const fill = new THREE.PointLight(0x78b4f0, 0.8, 22, 2);
+  const fill = new THREE.PointLight(0x8f7dff, 0.65, 24, 2);
   fill.position.set(3, 4, 4);
   scene.add(fill);
+  const coreLight = new THREE.PointLight(0x80f4ff, 0.9, 11, 2.2);
+  coreLight.position.set(0, 0, 1.8);
+  scene.add(coreLight);
 
   const group = new THREE.Group();
   scene.add(group);
 
-  const crystalGeo = new THREE.IcosahedronGeometry(2.1, 0);
+  let seed = 3407;
+  function rand() {
+    seed = (seed * 16807) % 2147483647;
+    return (seed - 1) / 2147483646;
+  }
+
+  const gate = new THREE.Group();
+  group.add(gate);
+
+  function makeTorus(radius, tube, color, opacity, arc) {
+    const g = new THREE.TorusGeometry(radius, tube, 12, 220, arc || Math.PI * 2);
+    const m = new THREE.MeshBasicMaterial({
+      color: color,
+      transparent: true,
+      opacity: opacity,
+      depthWrite: false,
+      blending: THREE.AdditiveBlending
+    });
+    return new THREE.Mesh(g, m);
+  }
+
+  const veil = new THREE.Mesh(
+    new THREE.RingGeometry(2.1, 3.08, 220, 1),
+    new THREE.MeshBasicMaterial({
+      color: 0x80f4ff,
+      side: THREE.DoubleSide,
+      transparent: true,
+      opacity: 0.055,
+      depthWrite: false,
+      blending: THREE.AdditiveBlending
+    })
+  );
+  veil.position.z = -0.55;
+  gate.add(veil);
+
+  const gateOuter = makeTorus(3.02, 0.018, 0xe9f5ff, 0.42);
+  const gateInner = makeTorus(2.16, 0.012, 0xf3d89b, 0.24);
+  const gateArcA = makeTorus(3.18, 0.014, 0x80f4ff, 0.34, Math.PI * 1.32);
+  const gateArcB = makeTorus(2.55, 0.012, 0x8f7dff, 0.22, Math.PI * 0.92);
+  gateArcA.rotation.z = -0.74;
+  gateArcB.rotation.z = 1.22;
+  gate.add(gateOuter, gateInner, gateArcA, gateArcB);
+
+  const spokePositions = [];
+  for (let i = 0; i < 24; i++) {
+    const a = (i / 24) * Math.PI * 2;
+    const inner = i % 2 ? 2.28 : 2.42;
+    const outer = 2.92;
+    spokePositions.push(
+      Math.cos(a) * inner, Math.sin(a) * inner, -0.5,
+      Math.cos(a) * outer, Math.sin(a) * outer, -0.5
+    );
+  }
+  const spokeGeo = new THREE.BufferGeometry();
+  spokeGeo.setAttribute("position", new THREE.BufferAttribute(new Float32Array(spokePositions), 3));
+  const spokes = new THREE.LineSegments(
+    spokeGeo,
+    new THREE.LineBasicMaterial({
+      color: 0xbfefff,
+      transparent: true,
+      opacity: 0.18,
+      blending: THREE.AdditiveBlending,
+      depthWrite: false
+    })
+  );
+  gate.add(spokes);
+
+  const crystalGeo = new THREE.IcosahedronGeometry(1.48, 1);
   const crystalMat = new THREE.MeshStandardMaterial({
-    color: 0xb8c4d4,
-    metalness: 1.0,
-    roughness: 0.2,
+    color: 0xc6d6e8,
+    metalness: 0.92,
+    roughness: 0.16,
     flatShading: true,
     envMap: envMap,
-    envMapIntensity: 1.25,
+    envMapIntensity: 1.35,
+    emissive: 0x071a2d,
+    emissiveIntensity: 0.2,
     transparent: true,
-    opacity: 0.85
+    opacity: 0.9
   });
   const crystal = new THREE.Mesh(crystalGeo, crystalMat);
-  group.add(crystal);
+  crystal.position.z = 0.04;
+  gate.add(crystal);
+
+  const core = new THREE.Mesh(
+    new THREE.OctahedronGeometry(0.62, 0),
+    new THREE.MeshStandardMaterial({
+      color: 0x9beeff,
+      metalness: 0.35,
+      roughness: 0.08,
+      envMap: envMap,
+      envMapIntensity: 1.1,
+      emissive: 0x114f74,
+      emissiveIntensity: 0.48,
+      transparent: true,
+      opacity: 0.78
+    })
+  );
+  core.position.z = 0.1;
+  gate.add(core);
 
   const edgesGeo = new THREE.EdgesGeometry(crystalGeo);
   const edgesMat = new THREE.LineBasicMaterial({
-    color: 0xe6eef7,
+    color: 0xe9f5ff,
     transparent: true,
-    opacity: 0.4
+    opacity: 0.38
   });
   crystal.add(new THREE.LineSegments(edgesGeo, edgesMat));
 
@@ -1250,14 +1481,46 @@
   const nodeGeo = new THREE.BufferGeometry();
   nodeGeo.setAttribute("position", new THREE.BufferAttribute(vPos, 3));
   const nodeMat = new THREE.PointsMaterial({
-    color: 0xeaf1f8,
-    size: 0.06,
+    color: 0xf6fbff,
+    size: 0.045,
     sizeAttenuation: true,
     transparent: true,
-    opacity: 0.9,
+    opacity: 0.88,
     depthWrite: false
   });
   crystal.add(new THREE.Points(nodeGeo, nodeMat));
+
+  const shardGroup = new THREE.Group();
+  const shardGeo = new THREE.ConeGeometry(0.055, 0.56, 4, 1);
+  const shardMat = new THREE.MeshStandardMaterial({
+    color: 0xe6f7ff,
+    metalness: 0.74,
+    roughness: 0.18,
+    envMap: envMap,
+    envMapIntensity: 1.25,
+    emissive: 0x10283f,
+    emissiveIntensity: 0.24,
+    flatShading: true,
+    transparent: true,
+    opacity: 0.84
+  });
+  for (let i = 0; i < 34; i++) {
+    const shard = new THREE.Mesh(shardGeo, shardMat);
+    const a = (i / 34) * Math.PI * 2 + (rand() - 0.5) * 0.12;
+    const radius = 3.28 + (i % 3) * 0.24 + rand() * 0.1;
+    const length = 0.82 + rand() * 0.52;
+    shard.position.set(
+      Math.cos(a) * radius,
+      Math.sin(a) * radius * 0.82,
+      -0.16 + (rand() - 0.5) * 0.28
+    );
+    shard.rotation.z = a - Math.PI / 2;
+    shard.rotation.x = (rand() - 0.5) * 0.55;
+    shard.rotation.y = (rand() - 0.5) * 0.45;
+    shard.scale.set(0.82, length, 0.82);
+    shardGroup.add(shard);
+  }
+  gate.add(shardGroup);
 
   function makeRing(radius, tiltX, tiltZ, opacity, color) {
     const g = new THREE.RingGeometry(radius, radius + 0.005, 220, 1);
@@ -1266,33 +1529,61 @@
       side: THREE.DoubleSide,
       transparent: true,
       opacity: opacity,
-      depthWrite: false
+      depthWrite: false,
+      blending: THREE.AdditiveBlending
     });
     const mesh = new THREE.Mesh(g, m);
     mesh.rotation.x = Math.PI / 2 + tiltX;
     mesh.rotation.z = tiltZ;
     return mesh;
   }
-  const ring1 = makeRing(3.2, 0, 0.35, 0.4, 0xd4dde8);
-  const ring2 = makeRing(3.65, -0.62, -0.5, 0.18, 0x78b4f0);
-  const ring3 = makeRing(4.2, 0.42, 0.9, 0.12, 0x93a5bd);
-  group.add(ring1, ring2, ring3);
+  const ring1 = makeRing(3.35, 0, 0.35, 0.34, 0xdde9f6);
+  const ring2 = makeRing(3.82, -0.62, -0.5, 0.18, 0x80f4ff);
+  const ring3 = makeRing(4.34, 0.42, 0.9, 0.12, 0x8f7dff);
+  const ring4 = makeRing(4.82, -0.22, 1.6, 0.08, 0xf3d89b);
+  group.add(ring1, ring2, ring3, ring4);
 
-  const PCOUNT = 800;
+  const latticePositions = [];
+  for (let i = 0; i < 54; i++) {
+    const a = (i / 54) * Math.PI * 2;
+    const b = a + 0.28 + (i % 5) * 0.025;
+    const r1 = 4.9 + (i % 4) * 0.22;
+    const r2 = 5.28 + (i % 3) * 0.26;
+    latticePositions.push(
+      Math.cos(a) * r1, Math.sin(a) * r1 * 0.58, -1.85 + Math.sin(a * 2) * 0.32,
+      Math.cos(b) * r2, Math.sin(b) * r2 * 0.58, -1.6 + Math.cos(b * 2) * 0.26
+    );
+  }
+  const latticeGeo = new THREE.BufferGeometry();
+  latticeGeo.setAttribute("position", new THREE.BufferAttribute(new Float32Array(latticePositions), 3));
+  const latticeLines = new THREE.LineSegments(
+    latticeGeo,
+    new THREE.LineBasicMaterial({
+      color: 0x80f4ff,
+      transparent: true,
+      opacity: 0.11,
+      blending: THREE.AdditiveBlending,
+      depthWrite: false
+    })
+  );
+  group.add(latticeLines);
+
+  const PCOUNT = 1150;
   const pPos = new Float32Array(PCOUNT * 3);
   const pCol = new Float32Array(PCOUNT * 3);
   const cSilver = new THREE.Color(0xc8d4e0);
-  const cAccent = new THREE.Color(0x78b4f0);
+  const cAccent = new THREE.Color(0x80f4ff);
+  const cViolet = new THREE.Color(0x8f7dff);
 
   for (let i = 0; i < PCOUNT; i++) {
-    const r = 3.2 + Math.pow(Math.random(), 1.4) * 8;
-    const theta = Math.random() * Math.PI * 2;
-    const phi = Math.acos(2 * Math.random() - 1);
+    const r = 3.35 + Math.pow(rand(), 1.55) * 8.8;
+    const theta = rand() * Math.PI * 2;
+    const phi = Math.acos(2 * rand() - 1);
     pPos[i * 3]     = r * Math.sin(phi) * Math.cos(theta);
     pPos[i * 3 + 1] = r * Math.sin(phi) * Math.sin(theta) * 0.65;
     pPos[i * 3 + 2] = r * Math.cos(phi);
-    const mix = Math.random();
-    const c = cSilver.clone().lerp(cAccent, mix * 0.7);
+    const mix = rand();
+    const c = cSilver.clone().lerp(mix > 0.78 ? cViolet : cAccent, mix * 0.7);
     pCol[i * 3]     = c.r;
     pCol[i * 3 + 1] = c.g;
     pCol[i * 3 + 2] = c.b;
@@ -1301,10 +1592,10 @@
   pGeo.setAttribute("position", new THREE.BufferAttribute(pPos, 3));
   pGeo.setAttribute("color", new THREE.BufferAttribute(pCol, 3));
   const pMat = new THREE.PointsMaterial({
-    size: 0.03,
+    size: 0.028,
     sizeAttenuation: true,
     transparent: true,
-    opacity: 0.7,
+    opacity: 0.74,
     depthWrite: false,
     vertexColors: true,
     blending: THREE.AdditiveBlending
@@ -1312,6 +1603,7 @@
   const dust = new THREE.Points(pGeo, pMat);
   group.add(dust);
 
+  let baseGroupY = 0;
   let baseGroupZ = 0;
   function layout() {
     const w = window.innerWidth;
@@ -1319,15 +1611,17 @@
     const mobile = w < 720;
 
     if (mobile) {
-      group.position.set(0, 2.2, -4.5);
-      group.scale.setScalar(0.7);
-      baseGroupZ = -4.5;
+      group.position.set(0, 2.24, -4.85);
+      group.scale.setScalar(0.62);
+      baseGroupY = 2.24;
+      baseGroupZ = -4.85;
       camera.position.set(0, 0, 12);
       camera.fov = 52;
     } else {
-      group.position.set(0, 2.4, -4.5);
-      group.scale.setScalar(1.0);
-      baseGroupZ = -4.5;
+      group.position.set(0, 2.18, -4.7);
+      group.scale.setScalar(0.96);
+      baseGroupY = 2.18;
+      baseGroupZ = -4.7;
       camera.position.set(0, 0, 12);
       camera.fov = 44;
     }
@@ -1359,19 +1653,34 @@
     pointer.x += (target.x - pointer.x) * 0.045;
     pointer.y += (target.y - pointer.y) * 0.045;
 
-    crystal.rotation.y = t * 0.2;
-    crystal.rotation.x = t * 0.08;
+    gate.rotation.z = Math.sin(t * 0.18) * 0.035;
+    gateArcA.rotation.z = -0.74 + t * 0.052;
+    gateArcB.rotation.z = 1.22 - t * 0.045;
+    shardGroup.rotation.z = -t * 0.026;
+    spokes.rotation.z = t * 0.018;
+    crystal.rotation.y = t * 0.24;
+    crystal.rotation.x = t * 0.095;
+    core.rotation.y = -t * 0.52;
+    core.rotation.x = t * 0.32;
     ring1.rotation.z = 0.35 + t * 0.08;
     ring2.rotation.z = -0.5 - t * 0.05;
     ring3.rotation.z = 0.9 + t * 0.03;
+    ring4.rotation.z = 1.6 - t * 0.022;
     dust.rotation.y = -t * 0.04;
     dust.rotation.x = t * 0.015;
+    latticeLines.rotation.y = -t * 0.024;
+    latticeLines.rotation.x = Math.sin(t * 0.22) * 0.03;
     const breathe = 1 + Math.sin(t * 0.6) * 0.02;
     crystal.scale.setScalar(breathe);
+    core.scale.setScalar(1 + Math.sin(t * 1.1) * 0.055);
 
     group.rotation.y = pointer.x * 0.22;
     group.rotation.x = pointer.y * 0.12;
+    group.rotation.z = pointer.x * 0.025;
+    group.position.y = baseGroupY + Math.sin(t * 0.45) * 0.055;
     group.position.z = baseGroupZ + pointer.y * 0.3;
+    coreLight.position.x = pointer.x * 0.8;
+    coreLight.position.y = pointer.y * -0.45;
 
     renderer.render(scene, camera);
   }
